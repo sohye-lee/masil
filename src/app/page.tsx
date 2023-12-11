@@ -1,16 +1,19 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image";
+import HomeImage from "public/home.jpg";
+
 
 export default function Home() {
   return (
-  <div>
-    <div className="flex items-center justify-center space-x-3">
-
-    <Link href="">Home</Link>
-    <Link href="/talks">Talks</Link>
-    <Link href="/schools">Schools</Link>
-    <Link href="/life">Life</Link>
+    <div>
+      Home
+      <div className='absolute -z-10 inset-0'>
+          <Image 
+              src={HomeImage} 
+              alt="life"
+              fill 
+              style={{objectFit: 'cover'}}
+          />
+      </div>
     </div>
-  </div>
   )
 }
