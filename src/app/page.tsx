@@ -16,12 +16,12 @@ export default async function Home() {
   const questions = await db.question.findMany();
   const renderQuestions = questions.map(q => {
     return (
-      <div className="p-3 bg-slate-50" key={q.id}>
+      <a className="p-3 bg-slate-50" key={q.id} href={`/questions/${q.id}`}>
         <h4 className="font-semibold">{q.title}</h4>
         <p>{q.description}</p>
         <p className="text-sm">{q.liked? q.liked : 0}</p>
         <p>{q.topicId}</p>
-      </div>
+      </a>
     )
   })
   return (
