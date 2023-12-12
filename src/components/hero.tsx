@@ -10,12 +10,12 @@ interface HeroProps {
 
 export default function Hero(props: HeroProps) {
     return (
-        <div className="relative w-full h-96 flex flex-col items-center justify-center overflow-hidden">
-            <h1>
+        <div className="relative w-full h-80 flex flex-col items-center justify-center overflow-hidden">
+            <h1 className="text-3xl text-white font-bold">
                 {props.title}
             </h1>
             {props.description ? 
-            <p>
+            <p className="mt-3 text-white opacity-70">
                 {props.description}
             </p> : null
             }
@@ -26,6 +26,7 @@ export default function Hero(props: HeroProps) {
                     fill 
                     style={{objectFit: 'cover'}}
                 />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-800" />
             </div>
     </div>
     )

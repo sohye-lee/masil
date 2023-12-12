@@ -1,19 +1,46 @@
-import Image from "next/image";
+import Hero from "@/components/hero";
+import { db } from "@/db";
 import HomeImage from "public/home.jpg";
+ 
 
+export default async function Home() {
+  const topics = await db.topic.findMany();
+  const renderTopics = topics.map(topic => {
+      return (
+          <div key={topic.id}>
+              {topic.name}
+          </div>
+      )
+  })
 
-export default function Home() {
-  return (
-    <div>
-      Home
-      <div className='absolute -z-10 inset-0'>
-          <Image 
-              src={HomeImage} 
-              alt="life"
-              fill 
-              style={{objectFit: 'cover'}}
-          />
+  const questions = await db.question.findMany();
+  const renderQuestions = questions.map(q => {
+    return (
+      <div className="p-3 bg-slate-50" key={q.id}>
+        <h4 className="font-semibold">{q.title}</h4>
+        <p>{q.description}</p>
+        <p className="text-sm">{q.liked? q.liked : 0}</p>
+        <p>{q.topicId}</p>
       </div>
+    )
+  })
+  return (
+    <div className='w-full'>
+        <Hero 
+            title="Home" 
+            description='here is the place' 
+            imgAlt='' 
+            imgData={HomeImage} 
+        />
+        <div className="container">
+          <div className="w-80 mx-auto py-8">
+            {renderTopics}
+          </div>
+          <div className="w-80 mx-auto py-8">
+            {renderQuestions}
+          </div>
+        </div>
+        
     </div>
   )
 }

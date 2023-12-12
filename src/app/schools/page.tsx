@@ -1,16 +1,18 @@
-import Image from 'next/image';
 import ShoolImage from 'public/schools.jpg';
+import Hero from '@/components/hero';
+import { db } from '@/db';
 
-export default function SchoolsPage() {
-    return <div>
-        School Page
-        <div className='absolute -z-10 inset-0'>
-            <Image 
-                src={ShoolImage} 
-                alt="life"
-                fill 
-                style={{objectFit: 'cover'}}
-            />
-        </div>
+export default async function SchoolsPage() {
+
+
+    return <div className='w-full'>
+        <Hero 
+            title="Talk about Life" 
+            description='here is the place' 
+            imgAlt='' 
+            imgData={ShoolImage} 
+        />
+ 
     </div>
+ 
 }
