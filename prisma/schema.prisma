@@ -16,9 +16,7 @@ model User {
   updatedAt   DateTime @updatedAt
   name        String?
   email       String @unique 
-  // questions   Question[]
 }
-
 
 model Topic {
   id          Int @id @default(autoincrement())
@@ -28,13 +26,37 @@ model Topic {
   questions   Question[]
 }
 
+
+model Language {
+  id          Int @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String 
+  snippets    Snippet[]
+}
+
+
 model Question {
   id          Int @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String 
   description String?
-  liked        Int? @default(0)
+  liked       Int? @default(0)
   topic       Topic @relation(fields:[topicId], references:[id], onDelete: Cascade) 
   topicId     Int
 }
+
+
+model Snippet {
+  id          Int @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String 
+  body        String 
+  liked       Int? @default(0)
+  language       Language @relation(fields:[languageId], references:[id], onDelete: Cascade) 
+  languageId     Int
+}
+
+

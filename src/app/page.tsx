@@ -1,5 +1,6 @@
 import Hero from "@/components/hero";
 import { db } from "@/db";
+import { PrismaClient } from "@prisma/client";
 import HomeImage from "public/home.jpg";
  
 
@@ -12,6 +13,14 @@ export default async function Home() {
           </div>
       )
   })
+  const languages = await db.language.findMany();
+  const renderLanguages = languages.map(language => {
+    return (
+        <div key={language.id}>
+            {language.name}
+        </div>
+    )
+})
 
   const questions = await db.question.findMany();
   const renderQuestions = questions.map(q => {
@@ -38,6 +47,8 @@ export default async function Home() {
           </div>
           <div className="w-80 mx-auto py-8">
             {renderQuestions}
+          </div><div className="w-80 mx-auto py-8">
+            {renderLanguages}
           </div>
         </div>
         

@@ -1,0 +1,44 @@
+/*
+  Warnings:
+
+  - You are about to drop the `Tag` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `TagsOnSnippts` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the column `tagId` on the `Snippet` table. All the data in the column will be lost.
+  - Added the required column `categoryId` to the `Snippet` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- DropTable
+PRAGMA foreign_keys=off;
+DROP TABLE "Tag";
+PRAGMA foreign_keys=on;
+
+-- DropTable
+PRAGMA foreign_keys=off;
+DROP TABLE "TagsOnSnippts";
+PRAGMA foreign_keys=on;
+
+-- CreateTable
+CREATE TABLE "Category" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "name" TEXT NOT NULL,
+    "parent" INTEGER NOT NULL DEFAULT 0
+);
+
+-- RedefineTables
+PRAGMA foreign_keys=OFF;
+CREATE TABLE "new_Snippet" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "title" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "categoryId" INTEGER NOT NULL,
+    CONSTRAINT "Snippet_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+INSERT INTO "new_Snippet" ("body", "createdAt", "id", "title", "updatedAt") SELECT "body", "createdAt", "id", "title", "updatedAt" FROM "Snippet";
+DROP TABLE "Snippet";
+ALTER TABLE "new_Snippet" RENAME TO "Snippet";
+PRAGMA foreign_key_check;
+PRAGMA foreign_keys=ON;

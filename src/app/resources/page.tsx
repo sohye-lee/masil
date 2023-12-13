@@ -1,12 +1,11 @@
 import Hero from '@/components/hero';
-import Image from 'next/image';
 import TalkImage from 'public/talks.jpg';
 
-export default function TalksPage() {
+export default function ResourcesPage() {
     return <div className='w-full'>
     <Hero 
-        title="Talk about Life" 
-        description='here is the place' 
+        title="Resources" 
+        description='Information from various resources' 
         imgAlt='' 
         imgData={TalkImage} 
     />

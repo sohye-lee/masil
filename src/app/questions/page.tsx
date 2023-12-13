@@ -2,13 +2,13 @@ import ShoolImage from 'public/schools.jpg';
 import Hero from '@/components/hero';
 import { db } from '@/db';
 
-export default async function SchoolsPage() {
+export default async function QuestionsPage() {
 
 
     return <div className='w-full'>
         <Hero 
-            title="Talk about Life" 
-            description='here is the place' 
+            title="Questions" 
+            description='Ask and Get Answers' 
             imgAlt='' 
             imgData={ShoolImage} 
         />
