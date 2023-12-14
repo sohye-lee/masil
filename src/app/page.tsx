@@ -1,7 +1,10 @@
 import Hero from "@/components/hero";
 import { db } from "@/db";
 import { PrismaClient } from "@prisma/client";
-import HomeImage from "public/home.jpg";
+import Snippet from "@/components/snippet";
+import Container from "@/components/container";
+import Link from "next/link";
+import HomeImage from "public/bg-2.jpg";
  
 
 export default async function Home() {
@@ -13,7 +16,7 @@ export default async function Home() {
           </div>
       )
   })
-  const languages = await db.language.findMany();
+  const languages = await db.language.findMany( );
   const renderLanguages = languages.map(language => {
     return (
         <div key={language.id}>
@@ -22,15 +25,35 @@ export default async function Home() {
     )
 })
 
+const snippets = await db.snippet.findMany({
+  take: 5,
+  include: {
+    language: {
+      select: {
+        id: true,
+        name: true
+      }
+    }
+  },
+  orderBy: [
+    {createdAt: "desc"}
+  ]
+});
+const renderSnippets = snippets.map(snippet => {
+  return (
+    <Snippet id={snippet.id} title={snippet.title} body={snippet.body} liked={snippet.liked || 0} language={snippet.language}  />
+  )
+})
+
   const questions = await db.question.findMany();
   const renderQuestions = questions.map(q => {
     return (
-      <a className="p-3 bg-slate-50" key={q.id} href={`/questions/${q.id}`}>
+      <Link className="p-3 bg-slate-50" key={q.id} href={`/questions/${q.id}`}>
         <h4 className="font-semibold">{q.title}</h4>
         <p>{q.description}</p>
         <p className="text-sm">{q.liked? q.liked : 0}</p>
         <p>{q.topicId}</p>
-      </a>
+      </Link>
     )
   })
   return (
@@ -41,16 +64,17 @@ export default async function Home() {
             imgAlt='' 
             imgData={HomeImage} 
         />
-        <div className="container">
-          <div className="w-80 mx-auto py-8">
-            {renderTopics}
-          </div>
-          <div className="w-80 mx-auto py-8">
-            {renderQuestions}
-          </div><div className="w-80 mx-auto py-8">
-            {renderLanguages}
-          </div>
-        </div>
+        
+        <Container wide={false}>
+          <div className="flex items-end justify-between mb-3 mt-8">
+
+              <h3 className="text-2xl font-medium   text-blue-800">
+                All Snippets
+              </h3>
+              <Link href="/snippets" className="rounded-md bg-blue-800 text-white px-2 py-1 text-sm">View All</Link>
+            </div>
+            {renderSnippets}
+        </Container>
         
     </div>
   )

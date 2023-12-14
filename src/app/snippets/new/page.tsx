@@ -1,6 +1,12 @@
 import {db} from '@/db';
 import { redirect } from 'next/navigation';
-import { Editor } from '@tinymce/tinymce-react';
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import SnippetImage from 'public/bg-1.jpg';
+import Container from '@/components/container';
+import Hero from '@/components/hero';
+import Button from '@/components/button';
 
 
 const createSnippet =  async (formData:FormData) => {
@@ -25,9 +31,15 @@ export default async function CreateSnippet () {
 
   
     return (
-        <div className='container py-8'>
-            <div className="w-96 mx-auto mt-20">
-                <h1 className="bold text-2xl mb-3">
+        <div className='w-full'>
+        <Hero 
+            title="Snippets" 
+            description='' 
+            imgAlt='' 
+            imgData={SnippetImage} 
+        />
+        <Container wide={false}>
+        <h1 className="bold text-2xl mb-3">
                     Create a snippet 
                 </h1>
                 <form action={createSnippet} method="POST" className='w-full'>
@@ -38,7 +50,7 @@ export default async function CreateSnippet () {
                     <div className="w-full mb-3">
                         <label htmlFor="code" className="semi-bold">Code</label>
                         <textarea id="code" name="code" rows={5} className="rounded border w-full py-3 px-2"></textarea>
-                        {/* <Editor id="code" /> */}
+                        {/* <FroalaEditorComponent /> */}
                     </div>
                     <div className="w-full mb-5 flex flex-col">
                         <label htmlFor="language" className="semi-bold">Language</label>
@@ -46,9 +58,11 @@ export default async function CreateSnippet () {
                             {renderLanguages}
                         </select>
                     </div>
-                    <button type='submit'  className='rounded px-5 py-2 text-white  bg-lime-800'>Create</button>
+                    <Button button={true} text={"Create"} mode="success" />
                 </form>
-            </div>
-        </div>
+        </Container>
+    </div>
+
+      
     )    
 }
