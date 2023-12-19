@@ -25,6 +25,7 @@ export default function Button({
   link,
   ...rest
 }: ButtonProps) {
+  
   let btnSize = '';
   switch (size) {
     case 'large':
@@ -58,32 +59,28 @@ export default function Button({
       btnMode = 'bg-emerald-400 hover:bg-emerald-300';
   }
 
-  // let btnType = '';
-  // switch(type) {
-  //     case('link'):
-  //         btnType = 'link';
-  //         break;
-  //     default:
-  //         btnType = "button";
-  // }
+ 
 
   return (
     <>
-      {button ? (
-        <button
-          type="submit"
-          className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border inline-block ${btnMode} ${btnSize} ${addClass}`}
-        >
-          {text}
-        </button>
-      ) : (
-        <Link
-          href={link || '/'}
-          className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border inline-block ${btnMode} ${btnSize} ${addClass}`}
-        >
-          {text}
-        </Link>
-      )}
+    {
+        button ? 
+        <button type="submit" className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</button>:
+        <Link href={link || '/'} className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</Link>
+    }
     </>
   );
 }
+ 
+//     return (
+//         <>
+//         {
+//             button ? 
+//             <button type="submit" className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</button>:
+//             <Link href={link || '/'} className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</Link>
+//         }
+//         </>
+//         )
+    
+// }
+ 

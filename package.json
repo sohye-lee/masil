@@ -10,18 +10,25 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^40.2.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@ionic/react": "^7.6.2",
+    "@monaco-editor/react": "^4.6.0",
     "@prisma/client": "^5.7.0",
     "@tinymce/tinymce-react": "^4.3.2",
     "brew": "^0.0.8",
+    "ionicons": "^7.2.2",
     "lexical": "^0.12.5",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "nextjs": "^0.0.3",
+    "node": "^18.11",
     "prisma": "^5.7.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-froala-wysiwyg": "^4.1.4",
-    "node": "^18.11"
+    "react-feather": "^2.0.10",
+    "react-froala-wysiwyg": "^4.1.4"
   },
   "devDependencies": {
     "@types/node": "^18.11",

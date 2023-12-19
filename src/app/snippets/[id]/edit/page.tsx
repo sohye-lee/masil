@@ -2,28 +2,15 @@ import Button from '@/components/button';
 import Container from '@/components/container';
 import Hero from '@/components/hero';
 import { db } from '@/db';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import SnippetImage from 'public/bg-1.jpg';
-import { useState } from 'react';
+import SnippetEditForm from '@/components/snippet-edit-form';
 
 interface EditSnippetProps {
   params: {
     id: string;
   };
 }
-
-const editSnippet = async (formData: FormData) => {
-  'use server';
-  const languageId = Number(formData.get('language')) || 0;
-  const newSnippet = await db.snippet.create({
-    data: {
-      title: formData.get('title') as string,
-      body: formData.get('code') as string,
-      languageId: languageId,
-    },
-  });
-  redirect(`/snippets/${newSnippet.id}`);
-};
 
 export default async function EditSnippet(props: EditSnippetProps) {
   const snippet = await db.snippet.findUnique({
@@ -34,6 +21,28 @@ export default async function EditSnippet(props: EditSnippetProps) {
       language: true,
     },
   });
+
+  if (!snippet) {
+    return notFound();
+  }
+
+  const editSnippet = async (formData: FormData) => {
+    'use server';
+    const languageId = Number(formData.get('language')) || 0;
+  
+    const newSnippet = await db.snippet.update({
+      where: {
+        id: snippet.id
+      },
+      data: {
+        title: formData.get('title') as string,
+        body: formData.get('code') as string,
+        languageId: languageId,
+      },
+    });
+    redirect(`/snippets/${newSnippet.id}`);
+  };
+
   const languages = await db.language.findMany();
   const renderLanguages = languages.map((language) => {
     return (
@@ -42,8 +51,7 @@ export default async function EditSnippet(props: EditSnippetProps) {
       </option>
     );
   });
-  // 'use client';
-  // const [value, setValue] = useState('');
+ 
 
   return (
     <div className="w-full">
@@ -58,7 +66,8 @@ export default async function EditSnippet(props: EditSnippetProps) {
             link={`/snippets/${snippet?.id}`}
           />
         </div>
-        <div className="w-full mx-auto mt-8">
+        <SnippetEditForm snippet={snippet} languages={languages} onSubmit={editSnippet} />
+        {/* <div className="w-full mx-auto mt-8">
           <h1 className="bold text-2xl mb-3">Create a snippet</h1>
           <form action={editSnippet} method="PUT" className="w-full">
             <div className="w-full mb-3">
@@ -84,7 +93,6 @@ export default async function EditSnippet(props: EditSnippetProps) {
                 className="rounded border w-full py-3 px-2"
                 value={snippet?.body}
               ></textarea>
-              {/* <FroalaEditorComponent /> */}
             </div>
             <div className="w-full mb-5 flex flex-col">
               <label htmlFor="language" className="semi-bold">
@@ -106,7 +114,7 @@ export default async function EditSnippet(props: EditSnippetProps) {
               addClass="float-right"
             />
           </form>
-        </div>
+        </div> */}
       </Container>
     </div>
   );

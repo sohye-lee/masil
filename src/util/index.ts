@@ -1,3 +1,4 @@
+'use client';
 
 export const parse = (e: React.FormEvent<HTMLInputElement>) => {
     const regex = new RegExp('[a-zA-Z0-9]+');
@@ -30,3 +31,19 @@ export const loading = () => {
 
     typing();
 }
+
+export const copyText = (  ) =>  {
+    var copyText = document.getElementById('copyContent');
+    navigator.clipboard.writeText(copyText?.textContent! || "");
+    var copyResult = document.getElementById('copyResult');
+    if (copyText) {
+        setTimeout(() => {
+            copyResult!.innerHTML = "copied";
+            copyResult!.style.display = "block";
+        }, 2000)
+        setInterval(() => {
+            copyResult!.style.display = 'none';
+        }, 4000)
+    }
+
+  }
