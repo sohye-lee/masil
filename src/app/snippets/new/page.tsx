@@ -7,6 +7,10 @@ import SnippetImage from 'public/bg-1.jpg';
 import Container from '@/components/container';
 import Hero from '@/components/hero';
 import Button from '@/components/button';
+import { useFormState } from 'react-dom';
+import * as actions from '@/actions';
+
+
  
 const createSnippet =  async (formData:FormData) => {
     'use server';
@@ -23,7 +27,7 @@ const createSnippet =  async (formData:FormData) => {
 };
 
 export default async function CreateSnippet () {
-    // const router = useRouter();
+    const [formState, action] = useFormState(actions.createSnippet,{message: ""});
     const languages = await db.language.findMany();
     const renderLanguages = languages.map(language => {
         return <option key={language.id} value={language.id}>{language.name}</option>
