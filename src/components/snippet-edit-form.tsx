@@ -14,13 +14,11 @@ interface SnippetProps {
 
 interface SnippetEditProps {
   snippet: SnippetProps;
-  onSubmit: (formData: FormData) => Promise<never>;
   languages: Language[];
 }
 
 export default function SnippetEditForm({
   snippet,
-  onSubmit,
   languages,
 }: SnippetEditProps) {
   'use client';
@@ -33,15 +31,16 @@ export default function SnippetEditForm({
   });
 
   const [body, setBody] = useState(snippet.body);
+  const [title, setTitle] = useState(snippet.title);
   const handleEditorChange = (value: string = '') => {
     setBody(value);
   };
 
-  const editSnippetAction = actions.editSnippet.bind(null, snippet.id, body);
+  const editSnippetAction = actions.editSnippet.bind(null, snippet.id, title, body);
 
   return (
     <div className="w-full mx-auto mt-8">
-      <h1 className="bold text-2xl mb-3">Create a snippet</h1>
+      <h1 className="bold text-2xl mb-3">Edit a snippet</h1>
       <form action={editSnippetAction} method="PUT" className="w-full">
         <div className="w-full mb-3">
           <label htmlFor="title" className="semi-bold">
@@ -52,7 +51,8 @@ export default function SnippetEditForm({
             id="title"
             name="title"
             className="rounded border w-full py-3 px-2"
-            value={snippet?.title}
+            value={title}
+            onChange={e => setTitle(e.target.value)}
           />
         </div>
         <div className="w-full mb-3">
@@ -87,12 +87,14 @@ export default function SnippetEditForm({
             {renderLanguages}
           </select>
         </div>
-        <Button
-          button={true}
-          text={'Save'}
-          mode="save"
-          addClass="float-right"
-        />
+        <div className="flex items-align justify-end">
+            <Button
+                button={true}
+                text={'Save'}
+                mode="save"
+                addClass="float-right"
+            />
+        </div>
       </form>
     </div>
   );

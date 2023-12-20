@@ -1,8 +1,5 @@
+import { deleteSnippet } from '@/actions';
 import Link from 'next/link';
-
-type ButtonSize = 'small' | 'medium' | 'large';
-type Mode = 'danger' | 'success' | 'save' | 'neutral';
-type ButtonType = 'link' | 'button';
 
 interface ButtonProps {
   button: boolean;
@@ -12,6 +9,8 @@ interface ButtonProps {
   addClass?: string;
   loading?: boolean;
   link?: string;
+  deleteId?: number;
+  deleteType?: 'snippets' | 'questions' | 'resources';
   [key: string]: any;
 }
 
@@ -23,6 +22,9 @@ export default function Button({
   addClass,
   loading,
   link,
+  onclick,
+  deleteId,
+  deleteType,
   ...rest
 }: ButtonProps) {
   
@@ -59,28 +61,14 @@ export default function Button({
       btnMode = 'bg-emerald-400 hover:bg-emerald-300';
   }
 
- 
-
   return (
     <>
     {
         button ? 
-        <button type="submit" className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</button>:
+        <button type="submit"  className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</button>:
         <Link href={link || '/'} className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</Link>
     }
     </>
   );
 }
- 
-//     return (
-//         <>
-//         {
-//             button ? 
-//             <button type="submit" className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</button>:
-//             <Link href={link || '/'} className={`rounded-md  border border-slate-800 border-r-2  border-b-2 hover:border  ${btnMode} ${btnSize} ${addClass}`} {...rest}>{text}</Link>
-//         }
-//         </>
-//         )
-    
-// }
  

@@ -45,5 +45,4 @@ export const copyText = (  ) =>  {
             copyResult!.style.display = 'none';
         }, 4000)
     }
-
-  }
+}
