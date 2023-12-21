@@ -56,23 +56,17 @@ export default function SnippetEditForm({
           />
         </div>
         <div className="w-full mb-3">
-          <label htmlFor="code" className="semi-bold">
-            Code
-          </label>
-          {/* <textarea
-                    id="code"
-                    name="code"
-                    rows={5}
-                    className="rounded border w-full py-3 px-2"
-                    value={snippet?.body}
-                    ></textarea> */}
-          <Editor
-            height="30vh"
-            defaultLanguage={snippet?.language.name}
-            defaultValue={snippet?.body}
-            options={{ minimap: { enabled: false } }}
-            onChange={handleEditorChange}
-          />
+            <label htmlFor="code" className="semi-bold">
+                Code
+            </label>
+            <Editor
+                height="30vh"
+                defaultLanguage={snippet?.language.name}
+                defaultValue={snippet?.body}
+                options={{ minimap: { enabled: false } }}
+                onChange={handleEditorChange}
+                className="border border-slate-200 rounded overflow-hidden"
+            />
         </div>
         <div className="w-full mb-5 flex flex-col">
           <label htmlFor="language" className="semi-bold">

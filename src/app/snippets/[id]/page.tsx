@@ -2,7 +2,7 @@ import Container from "@/components/container"
 import Hero from "@/components/hero";
 import { db } from "@/db"
 import SnippetImage from 'public/bg-1.jpg';
-import { Copy } from 'react-feather';
+import { Copy, Heart } from 'react-feather';
 import { copyText } from "@/util";
 import Button from "@/components/button";
 import { notFound } from "next/navigation";
@@ -25,31 +25,33 @@ export default async function SnippetPage(props:any) {
         notFound();
     }
     
-    const deleteSnippetAction = ()=> {
-        confirmAlert({
-          message: "Are you sure you want to delete this?",
-          buttons: [
-            {
-              label: 'Yes',
-              onClick: () => actions.deleteSnippet.bind(null, snippet.id)
-            },
-            {
-              label: 'No',
-            }
-          ]
-        })
+    const deleteSnippetAction = async ()=> {
+        'use server';
+        // confirmAlert({
+        //   message: "Are you sure you want to delete this?",
+        //   buttons: [
+        //     {
+        //       label: 'Yes',
+        //       onClick: () => actions.deleteSnippet.bind(null, snippet.id)
+        //     },
+        //     {
+        //       label: 'No',
+        //     }
+        //   ]
+        // })
         actions.deleteSnippet.bind(null, snippet.id)
       } 
     return (
         <div className="w-full">
             <Hero title={snippet?.title || "Snippet"} description="" imgAlt="" imgData={SnippetImage} />
             <Container wide={false}>
-                <p className="font-sm text-slate-500">
-                    <span className="tag">
+                <p className="font-sm text-slate-500 flex items-center gap-1 mb-3">
+                    <span className="text-sm   border bg-blue-100 border-blue-200 h-[26px] flex justify-center px-1 items-center">
                         {snippet?.language.name} 
                     </span>
-                    <span className="tag">
-                        {snippet?.language.name} 
+                    <span className="text-sm   gap-1 border bg-pink-100 border-pink-200 h-[26px] flex justify-center px-1 items-center">
+                        <Heart stroke="#f00" width="14" />
+                        {snippet?.liked} 
                     </span>
                 </p>
                 <h1 className="font-semibold text-2xl">

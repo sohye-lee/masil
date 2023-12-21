@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sass": "node-sass styles/sass/main.scss styles/css/style.css -w"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^40.2.0",
@@ -24,6 +25,7 @@
     "next-auth": "^4.24.5",
     "nextjs": "^0.0.3",
     "node": "^18.11",
+    "node-sass": "^9.0.0",
     "prisma": "^5.7.0",
     "react": "^18",
     "react-confirm-alert": "^3.0.6",
