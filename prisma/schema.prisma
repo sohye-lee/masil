@@ -33,6 +33,7 @@ model Language {
   updatedAt   DateTime @updatedAt
   name        String 
   snippets    Snippet[]
+  resources   Resource[]
 }
 
 
@@ -67,6 +68,7 @@ model Resource {
   title       String 
   link        String 
   comment     String? 
-  liked       Int @default(0)
-  topic       String     
+  liked       Int? @default(0)
+  languageId  Int
+  language    Language @relation(fields: [languageId], references: [id])
 }
