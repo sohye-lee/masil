@@ -1,28 +1,16 @@
-import { Snippet } from '@prisma/client';
+import { Topic } from '@prisma/client';
 import Link from 'next/link';
 
-interface LanguageProps {
-  id: number;
-  name: string;
-}
-
-interface SnippetProps {
+interface QuestionProps {
   id: number;
   title: string;
-  body: string;
-  liked?: number;
-  language: LanguageProps;
+  description: string;
+  liked: number;
+  topic: Topic;
   [key: string]: any;
 }
 
-export default function Snippet({
-  id,
-  title,
-  body,
-  liked,
-  language,
-  ...rest
-}: SnippetProps) {
+export default function Question({ id, title, liked, topic }: QuestionProps) {
   return (
     <Link
       href={`/snippets/${id}`}
@@ -30,7 +18,7 @@ export default function Snippet({
       key={id}
     >
       <div>
-        <p className="text-sm text-slate-500">{language.name}</p>
+        <p className="text-sm text-slate-500">{topic.name}</p>
         <h2 className="text-xl font-medium">{title}</h2>
       </div>
       <div className="flex flex-col items-end">

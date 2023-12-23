@@ -1,36 +1,35 @@
-import { Snippet } from '@prisma/client';
+import { Language, Snippet } from '@prisma/client';
 import Link from 'next/link';
 
-interface LanguageProps {
-  id: number;
-  name: string;
-}
-
-interface SnippetProps {
+interface TipProps {
   id: number;
   title: string;
-  body: string;
+  link: string;
+  comment?: string;
   liked?: number;
-  language: LanguageProps;
+  language: Language;
   [key: string]: any;
 }
 
-export default function Snippet({
+export default function Tip({
   id,
   title,
-  body,
+  link,
+  comment,
   liked,
   language,
   ...rest
-}: SnippetProps) {
+}: TipProps) {
   return (
     <Link
-      href={`/snippets/${id}`}
+      href={`/tips/${id}`}
       className="w-full px-4 py-3 rounded-md bg-slate-50 border border-slate-400 mb-3 flex justify-between items-end"
       key={id}
     >
       <div>
-        <p className="text-sm text-slate-500">{language.name}</p>
+        <p className="text-sm text-slate-500">
+          {id} {language.name}
+        </p>
         <h2 className="text-xl font-medium">{title}</h2>
       </div>
       <div className="flex flex-col items-end">

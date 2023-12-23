@@ -1,54 +1,53 @@
 'use client';
 
-import { Language } from "@prisma/client";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useFormState } from 'react-dom';
 import * as actions from '@/actions';
-import Button from "./button";
-import { Editor } from "@monaco-editor/react";
-import Input from "./input";
+import Button from './button';
+import { Editor } from '@monaco-editor/react';
+import Input from './input';
 import LanguageOptions from './languageOptions';
- 
-export default async function SnippetCreateForm( ) {
 
-    // const [body, setBody] = useState('');
-    // const [formData, setFormData] = useState({title: "", body});
-    // const [myLanguageId, setMyLanguageId] = useState('');
-    const [formState, action] = useFormState(actions.createSnippet,{message: ""});
-    // const [languages, setLanguages] = useState<Promise<Language[]>> ()
- 
-    // const handleEditorChange = (e:string = '') => {
-    //     setBody(e);
-    // };
- 
-    // const createSnippetAction = actions.createSnippet.bind(null,);
-    // let myLanguageName = "javascript";
+export default function SnippetCreateForm() {
+  // const [body, setBody] = useState('');
+  // const [formData, setFormData] = useState({title: "", body});
+  // const [myLanguageId, setMyLanguageId] = useState('');
+  const [formState, action] = useFormState(actions.createSnippet, {
+    message: '',
+  });
+  // const [languages, setLanguages] = useState<Promise<Language[]>> ()
 
-    
-    
-    // useEffect(() => {
-    //     const dbLanguages: Promise<Language[]> = actions.getLanguages() || Array<Language>;
-    //     if (dbLanguages) {
-    //         setLanguages(dbLanguages);
-    //     }
+  // const handleEditorChange = (e:string = '') => {
+  //     setBody(e);
+  // };
 
-    //     actions.getLanguage(Number(myLanguageId)).then(res => {
-    //         if (res) {
-    //             myLanguageName = res.name;
-    //         }
-    //     });
-       
-    // }, [])
+  // const createSnippetAction = actions.createSnippet.bind(null,);
+  // let myLanguageName = "javascript";
 
-    return (
-        <div className="w-full mx-auto mt-8">
-               <h1 className="bold text-2xl mb-3 mt-8">
-                        Create a snippet 
-                </h1>
-                <form action={action} method="POST" className='w-full'>
-                    <Input type="input" id="title" name="title" rows={10} label="Title" />
-                    <Input type="textarea" id="code" name="code" rows={10} label="Code" />
-                    {/* <div className="w-full mb-3">
+  // useEffect(() => {
+  //     const dbLanguages: Promise<Language[]> = actions.getLanguages() || Array<Language>;
+  //     if (dbLanguages) {
+  //         setLanguages(dbLanguages);
+  //     }
+
+  //     actions.getLanguage(Number(myLanguageId)).then(res => {
+  //         if (res) {
+  //             myLanguageName = res.name;
+  //         }
+  //     });
+
+  // }, [])
+
+  return (
+    <div className="w-full mt-8">
+      <h1 className="bold text-2xl mb-3 mt-8">Create a snippet</h1>
+      <form
+        action={action}
+        method="POST"
+        className="w-full flex flex-col gap-3"
+      >
+        <Input type="input" id="title" name="title" label="Title" />
+        <Input type="textarea" id="code" name="code" rows={10} label="Code" />
+        {/* <div className="w-full mb-3">
                         <Editor
                             height="30vh"
                             // language={myLanguageName}
@@ -60,8 +59,8 @@ export default async function SnippetCreateForm( ) {
                             className="border border-slate-200 rounded overflow-hidden"
                         />
                     </div> */}
-                    <LanguageOptions />
-                    {/* <div className="w-full mb-5 flex flex-col">
+        <LanguageOptions />
+        {/* <div className="w-full mb-5 flex flex-col">
                         <label htmlFor="language" className="semi-bold">Language</label>
                         <select id="language" name="language" className="rounded border w-full py-3 px-2" onChange={e => setMyLanguageId((e.target as HTMLSelectElement).value)}>
                             <option disabled selected>Select</option>
@@ -70,16 +69,21 @@ export default async function SnippetCreateForm( ) {
                             }) }
                         </select>
                     </div> */}
-                    {formState.message && formState.message != ""? 
-                    <div className="mb-4 rounded bg-orange-100 border border-orange-200 text-orange-700 py-1 px-2 text-xs ">
-                        {formState.message}
-                    </div>: null
-                    }
-                    <div className="flex items-center">
-                        <Button button={true} text={"Create"} mode="success" />
-                        <Button button={false} link="/snippets" text={"Cancel"} mode="neutral" addClass="ml-3"  />
-                    </div>
-                </form>
+        {formState.message && formState.message != '' ? (
+          <div className="mb-4 rounded bg-orange-100 border border-orange-200 text-orange-700 py-1 px-2 text-xs ">
+            {formState.message}
+          </div>
+        ) : null}
+        <div className="flex items-center justify-end gap-3">
+          <Button button={true} text={'Create'} mode="success" />
+          <Button
+            button={false}
+            link="/snippets"
+            text={'Cancel'}
+            mode="neutral"
+          />
         </div>
-    )
+      </form>
+    </div>
+  );
 }
